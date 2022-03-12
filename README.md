@@ -1,6 +1,6 @@
 # Village Culture
 Lofty pursuits of a person with minimal coding experience.
-###What is this?
+### What is this?
 This mod aims to give life to villagers and villages alike by deepening interactions between villagers.
 
 This may range from 
