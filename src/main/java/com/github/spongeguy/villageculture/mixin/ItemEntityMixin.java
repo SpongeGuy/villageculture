@@ -46,22 +46,18 @@ public abstract class ItemEntityMixin extends Entity {
         world.playSound(null, pos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 0.7f, 1.4f + world.random.nextFloat() * 0.2f);
     }
 
-    int vcltr_itemLifespan = this.getDataTracker().get(vcltr_trackedItemLifespan);
+    int vcltr_itemLifespan = this.getDataTracker().get(vcltr_trackedItemLifespan); // accessible version of tracked item lifespan
 
     @Inject(method = "tick", at = @At("HEAD"))
     protected void injectTick(CallbackInfo ci) {
-        System.out.println(vcltr_itemLifespan);
         if (itemAge >= vcltr_itemLifespan - 199) vcltr_itemDying = true;
 
-        // adds portal particles if item is > age 5900
         if(vcltr_itemDying) {
-            System.out.println(vcltr_itemLifespan + " " + this.getStack());
-
-            if (itemAge == vcltr_itemLifespan - 1) {
+            if (itemAge == vcltr_itemLifespan - 1) { // plays warp sound at item despawn
                 playWarpAwaySound(world, new BlockPos(this.getX(), this.getY(), this.getZ()));
             }
 
-            for (int i = 0; i < 2; ++i) {
+            for (int i = 0; i < 2; ++i) { // adds portal particles if item is > age 5899
                 this.world.addParticle(ParticleTypes.PORTAL,
                         this.getParticleX(0.5),
                         this.getRandomBodyY(),
