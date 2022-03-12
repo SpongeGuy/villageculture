@@ -13,3 +13,4 @@ all while keeping a relatively "vanilla" feel.
 
 Changes will be slow and minimal at first as my knowledge of java is limited, but I have big plans, so this will be a fantastic learning experience.
 
+![Sponge Guy](https://imgur.com/a/7Md0w37)
