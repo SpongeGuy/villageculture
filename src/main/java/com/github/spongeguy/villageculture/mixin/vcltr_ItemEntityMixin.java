@@ -6,7 +6,6 @@ import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
-import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
@@ -19,18 +18,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
-public abstract class ItemEntityMixin extends Entity {
-    public ItemEntityMixin(EntityType<? extends ItemEntity> type, World world) {
+public abstract class vcltr_ItemEntityMixin extends Entity {
+    public vcltr_ItemEntityMixin(EntityType<? extends ItemEntity> type, World world) {
         super(type, world);
     }
 
     @Shadow
     private int itemAge;
-
-    @Shadow
-    public ItemStack getStack() {
-        return null;
-    }
 
     boolean vcltr_itemDying = false;
 

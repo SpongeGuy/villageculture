@@ -4,7 +4,8 @@
   "package": "com.github.spongeguy.villageculture.mixin",
   "compatibilityLevel": "JAVA_16",
   "mixins": [
-    "ItemEntityMixin"
+    "vcltr_ItemEntityMixin",
+    "vcltr_LlamaEntityMixin"
   ],
   "client": [
   ],
