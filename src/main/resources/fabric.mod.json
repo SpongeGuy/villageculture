@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "villageculture",
-  "version": "${version}",
+  "version": "0.2",
   "name": "Village Culture",
   "description": "",
   "authors": [
@@ -9,7 +9,7 @@
   ],
   "contact": {},
   "license": "MIT",
-  "icon": "assets/villageculture/icon.png",
+  "icon": "assets/villageculture/textures/icons/icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [

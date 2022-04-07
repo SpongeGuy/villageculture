@@ -18,37 +18,38 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ItemEntity.class)
-public abstract class vcltr_ItemEntityMixin extends Entity {
-    public vcltr_ItemEntityMixin(EntityType<? extends ItemEntity> type, World world) {
+public abstract class ItemEntityMixin extends Entity {
+    public ItemEntityMixin(EntityType<? extends ItemEntity> type, World world) {
         super(type, world);
     }
 
     @Shadow
     private int itemAge;
 
-    boolean vcltr_itemDying = false;
+    boolean vcltr$itemDying = false;
 
     // data tracking for item lifespan (RAND * RANGE + MIN)
-    private static final TrackedData<Integer> vcltr_trackedItemLifespan = DataTracker.registerData(ItemEntity.class, TrackedDataHandlerRegistry.INTEGER);
+    private static final TrackedData<Integer> vcltr$trackedItemLifespan = DataTracker.registerData(ItemEntity.class, TrackedDataHandlerRegistry.INTEGER);
     @Inject(method = "initDataTracker", at = @At("TAIL"))
     protected void injectDataTracking(CallbackInfo ci) {
-        this.dataTracker.startTracking(vcltr_trackedItemLifespan, (int)(Math.random() * (100)) + 5899);
+        this.dataTracker.startTracking(vcltr$trackedItemLifespan, (int)(Math.random() * (100)) + 5899);
     }
 
+
     // sound for item death
-    public void playWarpAwaySound(World world, BlockPos pos) {
+    public void vcltr$playWarpAwaySound(World world, BlockPos pos) {
         world.playSound(null, pos, SoundEvents.ENTITY_ENDERMAN_TELEPORT, SoundCategory.NEUTRAL, 0.7f, 1.4f + world.random.nextFloat() * 0.2f);
     }
 
-    int vcltr_itemLifespan = this.getDataTracker().get(vcltr_trackedItemLifespan); // accessible version of tracked item lifespan
+    int vcltr$itemLifespan = this.getDataTracker().get(vcltr$trackedItemLifespan); // accessible version of tracked item lifespan
 
     @Inject(method = "tick", at = @At("HEAD"))
     protected void injectTick(CallbackInfo ci) {
-        if (itemAge >= vcltr_itemLifespan - 199) vcltr_itemDying = true;
+        if (itemAge >= vcltr$itemLifespan - 199) vcltr$itemDying = true;
 
-        if(vcltr_itemDying) {
-            if (itemAge == vcltr_itemLifespan - 1) { // plays warp sound at item despawn
-                playWarpAwaySound(world, new BlockPos(this.getX(), this.getY(), this.getZ()));
+        if(vcltr$itemDying) {
+            if (itemAge == vcltr$itemLifespan - 1) { // plays warp sound at item despawn
+                vcltr$playWarpAwaySound(world, new BlockPos(this.getX(), this.getY(), this.getZ()));
             }
 
             for (int i = 0; i < 2; ++i) { // adds portal particles if item is > age 5899
@@ -61,7 +62,7 @@ public abstract class vcltr_ItemEntityMixin extends Entity {
                         (this.random.nextDouble() - 0.5) * 2.0);
             }
 
-            if (!this.world.isClient() && itemAge == vcltr_itemLifespan) {
+            if (!this.world.isClient() && itemAge == vcltr$itemLifespan) {
                 this.discard();
             }
         }
